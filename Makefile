@@ -55,8 +55,6 @@ LDFLAGS 	+= -mthumb \
 			   -L$(LIBOPENCM3_DIR)/lib/stm32/f4 \
 			   -L$(ARM_GCC_TOOLCHAIN_DIR)/lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu \
 			   -s # issue #2 (https://github.com/nucleron/RTE/issues/2)
-
-#SOURCES = src/dbnc_flt.c src/frac_div.c src/main.c src/plc_app_default.c src/plc_dbg.c src/plc_glue_rte.c src/plc_iom.c src/plc_libc.c src/xprintf.c plc_backup.c  plc_clock.c  plc_diag.c  plc_gpio.c  plc_hw.c  plc_isr_stubs.c  plc_rtc.c  plc_serial.c  plc_tick.c  plc_wait_tmr.c  tick_blink.c
 		
 SOURCES		= main.c xprintf.c plc_libc.c plc_clock.c plc_wait_tmr.c plc_iom.c plc_backup.c plc_rtc.c plc_glue_rte.c plc_diag.c   plc_isr_stubs.c frac_div.c plc_tick.c plc_serial.c plc_app_default.c  plc_dbg.c  plc_gpio.c dbnc_flt.c  plc_hw.c  
 		   
