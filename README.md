@@ -92,7 +92,7 @@ TONFIT GND	  -> USB to Serial TTL GND
 
 Enter in the tonfit rte project directory cloned with git.
 
-> Check the usb device created by linux to your USB to Serial Converter and check the `flash_hex` target in the makefile to match with it
+> Check the usb device created by linux to your USB to Serial Converter and change the `flash_hex` target in the makefile to match with it
 
 ```shell
 $ cd tonfit_rte
