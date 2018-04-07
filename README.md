@@ -1,4 +1,4 @@
-# STM32F4DISC RTE
+# TONFIT RTE
 
 This is a simple "Makefication" of [RTE](https://github.com/nucleron/RTE) nucleron project focused in [TONFIT board](https://github.com/iotontech).
 
