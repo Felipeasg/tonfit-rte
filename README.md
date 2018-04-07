@@ -37,6 +37,14 @@ $ wget https://launchpad.net/gcc-arm-embedded/4.9/4.9-2015-q3-update/+download/g
 $ hg clone ssh://hg@bitbucket.org/mjsousa/matiec
 ```
 
+* Clone and build stm32flash
+
+```shell
+$ git clone git://git.code.sf.net/p/stm32flash/code stm32flash-code
+$ cd stm32flash
+$ make
+```
+
 * Clone libopencm3 project
 
 ```shell

@@ -2,10 +2,10 @@
 LINDENT=indent -npro -kr -i8 -ts8 -sob -l80 -ss -ncs -cp1 -il0
 
 
-LIBOPENCM3_DIR = /home/felipe/projects_study/automation/beremiz/related-projects/ioton_plc/libopencm3_stm32f4
-MATIEC_C_INCLUDE_DIR=/home/felipe/projects_study/automation/beremiz/related-projects/ioton_plc/matiec/lib/C
-ARM_GCC_TOOLCHAIN_DIR=/home/felipe/projects_study/automation/beremiz/related-projects/nucleron/gcc-arm-none-eabi-4_9-2015q3
-STM32FLASH_DIR=/home/felipe/projects_study/automation/beremiz/related-projects/ioton_plc/stm32flash
+LIBOPENCM3_DIR ?= /home/user/tonfit_root_dir/libopencm3_stm32f4
+MATIEC_C_INCLUDE_DIR ?=/home/user/tonfit_root_dir/matiec/lib/C
+ARM_GCC_TOOLCHAIN_DIR ?=/home/user/tonfit_root_dir/gcc-arm-none-eabi-4_9-2015q3
+STM32FLASH_DIR ?=/home/user/tonfit_root_dir/stm32flash
 
 # BUILD CONFIG 
 LDSCRIPT = stm32f4disco-rte.ld
