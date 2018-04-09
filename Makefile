@@ -2,10 +2,10 @@
 LINDENT=indent -npro -kr -i8 -ts8 -sob -l80 -ss -ncs -cp1 -il0
 
 
-LIBOPENCM3_DIR ?= /home/user/tonfit_root_dir/libopencm3_stm32f4
-MATIEC_C_INCLUDE_DIR ?=/home/user/tonfit_root_dir/matiec/lib/C
-ARM_GCC_TOOLCHAIN_DIR ?=/home/user/tonfit_root_dir/gcc-arm-none-eabi-4_9-2015q3
-STM32FLASH_DIR ?=/home/user/tonfit_root_dir/stm32flash
+LIBOPENCM3_DIR ?= /home/felipe/projects_study/automation/beremiz/related-projects/ioton_plc/libopencm3
+MATIEC_C_INCLUDE_DIR ?=/home/felipe/projects_study/automation/beremiz/related-projects/ioton_plc/matiec/lib/C
+ARM_GCC_TOOLCHAIN_DIR ?=/home/felipe/projects_study/automation/beremiz/related-projects/ioton_plc/gcc-arm-none-eabi-4_9-2015q3
+STM32FLASH_DIR ?=/home/felipe/projects_study/automation/beremiz/related-projects/ioton_plc/stm32flash
 
 # BUILD CONFIG 
 LDSCRIPT = stm32f4disco-rte.ld
@@ -23,9 +23,10 @@ EXECUTABLE = tonfit_rte
 BINARY = $(EXECUTABLE).elf
 HEX	   = $(EXECUTABLE).hex
 BIN    = $(EXECUTABLE).bin
-LIST   = $(EXECUTABLE).lst
+LIST   = $(EXECUTABLE).list
 SREC   = $(EXECUTABLE).srec
 
+SRC_DIR=./src
 
 # -g flag indicated in issue  #2 RTE (https://github.com/nucleron/RTE/issues/2) (maybe something related with ABI?)
 CFLAGS += -g -mthumb \
@@ -62,34 +63,35 @@ OBJS		= $(SOURCES:.c=.o)
 
 #OBJS		+= $(BINARY).o 
 
+CSOURCES = $(addprefix $(SRC_DIR)/,$(SOURCES))
+COBJECTS = $(addprefix $(SRC_DIR)/,$(OBJS))
 
 
-
-all: $(BINARY) $(SOURCES) $(HEX) $(BIN) $(SREC) $(LIST)
+all: $(BINARY) $(CSOURCES) $(HEX) $(BIN) $(SREC) $(LIST)
 	@echo "finished"
 	$(SIZE) $(BINARY)		
 
-$(BINARY): $(OBJS) $(LDSCRIPT)
-	$(LD) $(OBJS) -lopencm3_stm32f4 $(LDFLAGS)  -o $@
+$(BINARY): $(COBJECTS) $(LDSCRIPT)
+	$(LD) $(COBJECTS) -lopencm3_stm32f4 $(LDFLAGS)  -o $@
 	
 
-%.o: %.c Makefile
+$(SRC_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(HEX): $(BINARY) $(SOURCES)
+$(HEX): $(BINARY) $(CSOURCES)
 	$(OBJCOPY) -Oihex $(BINARY) $@
 
-$(BIN): $(BINARY) $(SOURCES)
+$(BIN): $(BINARY) $(CSOURCES)
 	$(OBJCOPY) -Obinary $(BINARY) $@
 
-$(SREC): $(BINARY) $(SOURCES)
+$(SREC): $(BINARY) $(CSOURCES)
 	$(OBJCOPY) -Osrec $(BINARY) $@
 
-$(LIST): $(BINARY) $(SOURCES)
+$(LIST): $(BINARY) $(CSOURCES)
 	$(OBJDUMP) -S $(BINARY) > $@
 
 clean:
-	rm -f *.o *.d *.elf *.bin *.hex *.srec *.list
+	rm -f $(SRC_DIR)/*.o *.d *.elf *.bin *.hex *.srec *.list *.map *.log
 	#$(MAKE) -C $(LIBOPENCM3_DIR) clean
 
 flash_hex: $(HEX)
