@@ -122,3 +122,5 @@ clean:
 
 flash_hex: $(HEX)
 	stm32flash -w $< -v -g 0x0 -S 0x08000000 /dev/ttyUSB0
+
+.PHONY: clean flash_hex
